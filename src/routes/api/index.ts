@@ -4,4 +4,4 @@ import { postsRoutes } from "./posts";
 
 export const routes = Router();
 
-routes.use(postsRoutes);
+routes.use("/posts", postsRoutes);
