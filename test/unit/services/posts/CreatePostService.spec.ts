@@ -1,6 +1,6 @@
-import { Input } from "../../../../src/services/interfaces/posts/ICreatePostService";
-import { CreatePostService } from "../../../../src/services/implementations/posts/CreatePostService";
-import { PostRepositoryStub } from "../../../mocks/repositories/PostRepositoryStub";
+import { Input } from "@/services/interfaces/posts/ICreatePostService";
+import { CreatePostService } from "@/services/implementations/posts/CreatePostService";
+import { PostRepositoryStub } from "@test/mocks/repositories/PostRepositoryStub";
 
 const makeSut = () => {
   const mockedPostRepository = new PostRepositoryStub();

@@ -1,4 +1,4 @@
-import { Post } from "models/post";
+import { Post } from "@/models/post";
 
 export const mockPost = (override?: Partial<Post>): Post => {
   return {

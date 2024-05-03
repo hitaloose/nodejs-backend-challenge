@@ -1,4 +1,4 @@
-import { Post } from "models/post";
+import { Post } from "@/models/post";
 
 export type Values = Omit<Post, "id">;
 

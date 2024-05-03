@@ -1,9 +1,9 @@
-import { IPostRepository } from "repositories/interfaces/IPostRepository";
+import { IPostRepository } from "@/repositories/interfaces/IPostRepository";
 import {
   ICreatePostService,
   Input,
   Output,
-} from "services/interfaces/posts/ICreatePostService";
+} from "@/services/interfaces/posts/ICreatePostService";
 
 export class CreatePostService implements ICreatePostService {
   constructor(private readonly postRepository: IPostRepository) {}

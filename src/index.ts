@@ -1,3 +1,5 @@
-import { app } from "app";
+import "./boot";
+
+import { app } from "./app";
 
 app.listen(3333, () => console.log("server running on 3333"));
