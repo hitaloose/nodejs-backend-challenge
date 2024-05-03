@@ -1,8 +1,8 @@
 import { Router } from "express";
 
 import { makeCreatePostController } from "@/factories/controllers/posts/makeCreatePostController";
-import { adaptController } from "@/helpers/adaptController";
+import { expressControllerAdapter as adapt } from "@/adapters/expressControllerAdapter";
 
 export const postsRoutes = Router();
 
-postsRoutes.post("/", adaptController(makeCreatePostController()));
+postsRoutes.post("/", adapt(makeCreatePostController()));

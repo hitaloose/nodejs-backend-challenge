@@ -1,17 +1,21 @@
-import { Request, Response } from "express";
-
 import { ICreatePostService } from "@/services/interfaces/posts/ICreatePostService";
 
 import { bodyValidator } from "./bodyValidator";
+import {
+  HttpRequest,
+  HttpResponse,
+  IController,
+} from "@/controllers/interfaces/IController";
+import { created } from "@/helpers/http";
 
-export class CreatePostController {
+export class CreatePostController implements IController {
   constructor(private readonly createPostService: ICreatePostService) {}
 
-  async handle(request: Request, response: Response) {
+  async handle(request: HttpRequest): Promise<HttpResponse> {
     const body = await bodyValidator(request.body);
 
     const output = await this.createPostService.run(body);
 
-    response.status(201).json(output);
+    return created(output);
   }
 }

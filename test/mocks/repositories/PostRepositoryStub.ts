@@ -9,4 +9,7 @@ export class PostRepositoryStub implements IPostRepository {
   async insert(values: Values): Promise<Post> {
     return mockPost(values);
   }
+  async findByPageAndCountAll(): Promise<{ posts: Post[]; count: number }> {
+    return { posts: [mockPost()], count: 1 };
+  }
 }

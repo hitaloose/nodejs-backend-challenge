@@ -1,4 +1,4 @@
-import { CreatePostController } from "@/controllers/posts/CreatePostController/CreatePostController";
+import { CreatePostController } from "@/controllers/implementations/posts/CreatePostController/CreatePostController";
 import { makeCreatePostService } from "@/factories/services/posts/makeCreatePostService";
 
 export const makeCreatePostController = () => {

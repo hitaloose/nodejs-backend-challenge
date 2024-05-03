@@ -25,9 +25,9 @@ describe("POST /api/posts", () => {
 
     expect(response.statusCode).toBe(201);
 
-    expect(response.body.id).toBeTruthy();
-    expect(response.body.title).toBeTruthy();
-    expect(response.body.body).toBeTruthy();
-    expect(response.body.tags).toBeTruthy();
+    expect(response.body.post.id).toBeTruthy();
+    expect(response.body.post.title).toBeTruthy();
+    expect(response.body.post.body).toBeTruthy();
+    expect(response.body.post.tags).toBeTruthy();
   });
 });
