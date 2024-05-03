@@ -29,7 +29,7 @@ describe("CreatePostController", () => {
 
     const promise = sut.handle(request);
 
-    await expect(promise).rejects.toThrow();
+    await expect(promise).rejects.toThrow("title is a required field");
   });
 
   it("should call createPostService with correct values", async () => {
@@ -49,6 +49,6 @@ describe("CreatePostController", () => {
     const { statusCode, body } = await sut.handle(makeRequest());
 
     expect(statusCode).toBe(201);
-    expect(body?.post).toBeTruthy;
+    expect(body?.post).toBeTruthy();
   });
 });
