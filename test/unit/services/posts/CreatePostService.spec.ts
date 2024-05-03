@@ -1,3 +1,5 @@
+import faker from "faker";
+
 import { Input } from "@/services/interfaces/posts/ICreatePostService";
 import { CreatePostService } from "@/services/implementations/posts/CreatePostService";
 import { PostRepositoryStub } from "@test/mocks/repositories/PostRepositoryStub";
@@ -11,9 +13,9 @@ const makeSut = () => {
 };
 
 const makeInput = (): Input => ({
-  body: "any body",
-  title: "any title",
-  tags: [],
+  title: faker.random.words(),
+  body: faker.random.words(),
+  tags: [faker.random.word(), faker.random.word(), faker.random.word()],
 });
 
 describe("CreatePostService", () => {
