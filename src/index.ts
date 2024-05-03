@@ -1,5 +1,8 @@
 import "./boot";
 
 import { app } from "./app";
+import { configs } from "./helpers/configs";
 
-app.listen(3333, () => console.log("server running on 3333"));
+app.listen(configs.HTTP_PORT, () =>
+  console.log(`server running on ${configs.HTTP_PORT}`)
+);
