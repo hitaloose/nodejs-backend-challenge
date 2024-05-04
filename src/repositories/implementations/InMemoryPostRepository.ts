@@ -19,6 +19,12 @@ export class InMemoryPostRepository implements IPostRepository {
     return createdPost;
   }
 
+  async findById(id: string): Promise<Post | null> {
+    const post = InMemoryPostRepository.POSTS.find((item) => item.id === id);
+
+    return post || null;
+  }
+
   async findByPageAndCountAll(
     page: number
   ): Promise<{ posts: Post[]; count: number }> {

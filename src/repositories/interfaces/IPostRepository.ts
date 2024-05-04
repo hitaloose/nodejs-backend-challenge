@@ -7,4 +7,5 @@ export interface IPostRepository {
   findByPageAndCountAll(
     page: number
   ): Promise<{ posts: Post[]; count: number }>;
+  findById(id: string): Promise<Post | null>;
 }
