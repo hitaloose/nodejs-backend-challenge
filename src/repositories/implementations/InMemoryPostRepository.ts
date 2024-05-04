@@ -4,9 +4,24 @@ import { Post } from "@/models/post";
 
 import { IPostRepository, Values } from "../interfaces/IPostRepository";
 import { configs } from "@/helpers/configs";
+import { HttpError } from "@/errors/HttpError";
 
 export class InMemoryPostRepository implements IPostRepository {
   static POSTS: Post[] = [];
+
+  async update(id: string, values: Values): Promise<Post> {
+    const post = await this.findById(id);
+
+    if (!post) {
+      throw new HttpError(`post with id ${id} not found`, 404);
+    }
+
+    post.title = values.title;
+    post.body = values.body;
+    post.tags = values.tags;
+
+    return post;
+  }
 
   async insert(values: Values): Promise<Post> {
     const createdPost = {
