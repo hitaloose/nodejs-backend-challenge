@@ -9,6 +9,18 @@ import { HttpError } from "@/errors/HttpError";
 export class InMemoryPostRepository implements IPostRepository {
   static POSTS: Post[] = [];
 
+  async delete(id: string): Promise<void> {
+    const index = InMemoryPostRepository.POSTS.findIndex(
+      (item) => item.id === id
+    );
+
+    if (index < 0) {
+      throw new HttpError(`post with id ${id} not found`, 404);
+    }
+
+    InMemoryPostRepository.POSTS.splice(index, 1);
+  }
+
   async update(id: string, values: Values): Promise<Post> {
     const post = await this.findById(id);
 

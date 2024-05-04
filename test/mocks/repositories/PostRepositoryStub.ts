@@ -6,6 +6,10 @@ import {
 import { mockPost } from "../models/mockPost";
 
 export class PostRepositoryStub implements IPostRepository {
+  async delete(): Promise<void> {
+    return;
+  }
+
   async update(id: string, values: Values): Promise<Post> {
     return mockPost({ id, ...values });
   }
