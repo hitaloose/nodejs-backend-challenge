@@ -27,6 +27,30 @@ describe("GetPostsService", () => {
     expect(spy).toHaveBeenLastCalledWith(input.page);
   });
 
+  it("should return correct maxPage when repo count 1", async () => {
+    const { sut, mockedPostRepository } = makeSut();
+
+    jest
+      .spyOn(mockedPostRepository, "findByPageAndCountAll")
+      .mockResolvedValueOnce({ posts: [], count: 1 });
+
+    const output = await sut.run(makeInput());
+
+    expect(output.maxPage).toBe(1);
+  });
+
+  it("should return correct maxPage when repo count 65", async () => {
+    const { sut, mockedPostRepository } = makeSut();
+
+    jest
+      .spyOn(mockedPostRepository, "findByPageAndCountAll")
+      .mockResolvedValueOnce({ posts: [], count: 65 });
+
+    const output = await sut.run(makeInput());
+
+    expect(output.maxPage).toBe(3);
+  });
+
   it("should throw if findByPageAndCountAll throws", async () => {
     const { sut, mockedPostRepository } = makeSut();
 

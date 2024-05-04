@@ -6,7 +6,7 @@ import { IPostRepository, Values } from "../interfaces/IPostRepository";
 import { configs } from "@/helpers/configs";
 
 export class InMemoryPostRepository implements IPostRepository {
-  private POSTS: Post[] = [];
+  static POSTS: Post[] = [];
 
   async insert(values: Values): Promise<Post> {
     const createdPost = {
@@ -14,7 +14,7 @@ export class InMemoryPostRepository implements IPostRepository {
       ...values,
     };
 
-    this.POSTS.push(createdPost);
+    InMemoryPostRepository.POSTS.push(createdPost);
 
     return createdPost;
   }
@@ -25,7 +25,7 @@ export class InMemoryPostRepository implements IPostRepository {
     const skip = (page - 1) * configs.PAGE_SIZE;
     const maxCounter = skip + configs.PAGE_SIZE;
 
-    const posts = this.POSTS.filter((post, index) => {
+    const posts = InMemoryPostRepository.POSTS.filter((post, index) => {
       const counter = index + 1;
 
       if (counter > skip && counter <= maxCounter) return true;
@@ -33,6 +33,6 @@ export class InMemoryPostRepository implements IPostRepository {
       return false;
     });
 
-    return { posts, count: this.POSTS.length };
+    return { posts, count: InMemoryPostRepository.POSTS.length };
   }
 }
