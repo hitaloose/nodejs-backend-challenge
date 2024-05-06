@@ -13,4 +13,8 @@ export class UserRepositoryStub implements IUserRepository {
   async findByEmail(email: string): Promise<User | null> {
     return mockUser({ email });
   }
+
+  async findById(id: string): Promise<User | null> {
+    return mockUser({ id });
+  }
 }

@@ -4,7 +4,8 @@ import express from "express";
 import cors from "cors";
 
 import { routes } from "./routes/api";
-import { handleErrorMiddleware } from "./middlewares/handleErrorMiddleware";
+
+import { errorHandler } from "./helpers/errorHandler";
 
 export const app = express();
 
@@ -13,4 +14,4 @@ app.use(cors());
 
 app.use("/api", routes);
 
-app.use(handleErrorMiddleware);
+app.use(errorHandler);

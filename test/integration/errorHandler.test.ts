@@ -3,7 +3,7 @@ import "express-async-errors";
 import express from "express";
 import request from "supertest";
 
-import { handleErrorMiddleware } from "@/middlewares/handleErrorMiddleware";
+import { errorHandler } from "@/helpers/errorHandler";
 import { HttpError } from "@/errors/HttpError";
 
 const app = express();
@@ -21,9 +21,9 @@ app.get("/unknown_error", () => {
   throw "unknow-error";
 });
 
-app.use(handleErrorMiddleware);
+app.use(errorHandler);
 
-describe("handleErrorMiddleware", () => {
+describe("errorHandler", () => {
   it("should handle with HttpError", async () => {
     const response = await request(app).get("/http_error");
 

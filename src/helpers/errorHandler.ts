@@ -2,7 +2,7 @@ import { HttpError } from "@/errors/HttpError";
 import { NextFunction, Response, ErrorRequestHandler, Request } from "express";
 import { ValidationError } from "yup";
 
-export const handleErrorMiddleware = (
+export const errorHandler = (
   error: ErrorRequestHandler,
   request: Request,
   response: Response,
