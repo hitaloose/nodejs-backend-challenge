@@ -4,6 +4,7 @@ import request from "supertest";
 import { InMemoryPostRepository } from "@/repositories/implementations/InMemoryPostRepository";
 import { app } from "@/app";
 import { mockPost } from "@test/mocks/models/mockPost";
+import { makeAuthorization } from "@test/integration/helpers/makeAuthorization";
 
 describe("GET /api/posts/:postId", () => {
   beforeEach(() => {
@@ -11,7 +12,9 @@ describe("GET /api/posts/:postId", () => {
   });
 
   it("should throw if an invalid id is provided", async () => {
-    const response = await request(app).get("/api/posts/invalid_uuid");
+    const response = await request(app)
+      .get("/api/posts/invalid_uuid")
+      .set("authorization", await makeAuthorization());
 
     expect(response.statusCode).toBe(400);
     expect(response.body.errorMessage).toBe("postId must be a valid UUID");
@@ -20,7 +23,9 @@ describe("GET /api/posts/:postId", () => {
   it("should return 404 if post not found", async () => {
     const findedId = faker.datatype.uuid();
 
-    const response = await request(app).get(`/api/posts/${findedId}`);
+    const response = await request(app)
+      .get(`/api/posts/${findedId}`)
+      .set("authorization", await makeAuthorization());
 
     expect(response.statusCode).toBe(404);
     expect(response.body.errorMessage).toBe(
@@ -33,7 +38,9 @@ describe("GET /api/posts/:postId", () => {
     const mockedPost = mockPost({ id });
     InMemoryPostRepository.POSTS.push(mockedPost);
 
-    const response = await request(app).get(`/api/posts/${id}`);
+    const response = await request(app)
+      .get(`/api/posts/${id}`)
+      .set("authorization", await makeAuthorization());
 
     expect(response.statusCode).toBe(200);
     expect(response.body?.post).toBeTruthy();

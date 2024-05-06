@@ -3,6 +3,7 @@ import request from "supertest";
 import { app } from "@/app";
 import { InMemoryPostRepository } from "@/repositories/implementations/InMemoryPostRepository";
 import { mockPost } from "@test/mocks/models/mockPost";
+import { makeAuthorization } from "@test/integration/helpers/makeAuthorization";
 
 const makeQueries = () => ({
   page: 1,
@@ -17,7 +18,10 @@ describe("GET /api/posts", () => {
     const queries = makeQueries();
     queries.page = 0;
 
-    const response = await request(app).get("/api/posts").query(queries);
+    const response = await request(app)
+      .get("/api/posts")
+      .query(queries)
+      .set("authorization", await makeAuthorization());
 
     expect(response.statusCode).toBe(400);
     expect(response.body.errorMessage).toBe(
@@ -26,7 +30,10 @@ describe("GET /api/posts", () => {
   });
 
   it("should return 200 on success when no itens on DB", async () => {
-    const response = await request(app).get("/api/posts").query(makeQueries());
+    const response = await request(app)
+      .get("/api/posts")
+      .query(makeQueries())
+      .set("authorization", await makeAuthorization());
 
     expect(response.statusCode).toBe(200);
 
@@ -41,7 +48,10 @@ describe("GET /api/posts", () => {
     InMemoryPostRepository.POSTS.push(mockPost());
     InMemoryPostRepository.POSTS.push(mockPost());
 
-    const response = await request(app).get("/api/posts").query(makeQueries());
+    const response = await request(app)
+      .get("/api/posts")
+      .query(makeQueries())
+      .set("authorization", await makeAuthorization());
 
     expect(response.statusCode).toBe(200);
 
@@ -55,7 +65,10 @@ describe("GET /api/posts", () => {
       InMemoryPostRepository.POSTS.push(mockPost());
     }
 
-    const response = await request(app).get("/api/posts").query(makeQueries());
+    const response = await request(app)
+      .get("/api/posts")
+      .query(makeQueries())
+      .set("authorization", await makeAuthorization());
 
     expect(response.statusCode).toBe(200);
 

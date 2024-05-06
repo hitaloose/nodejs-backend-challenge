@@ -2,6 +2,7 @@ import faker from "faker";
 import request from "supertest";
 
 import { app } from "@/app";
+import { makeAuthorization } from "@test/integration/helpers/makeAuthorization";
 
 const makeBody = () => ({
   title: faker.random.words(),
@@ -14,14 +15,20 @@ describe("POST /api/posts", () => {
     const body = makeBody();
     body.title = "";
 
-    const response = await request(app).post("/api/posts").send(body);
+    const response = await request(app)
+      .post("/api/posts")
+      .set("authorization", await makeAuthorization())
+      .send(body);
 
     expect(response.statusCode).toBe(400);
     expect(response.body.errorMessage).toBe("title is a required field");
   });
 
   it("should return 201 on success", async () => {
-    const response = await request(app).post("/api/posts").send(makeBody());
+    const response = await request(app)
+      .post("/api/posts")
+      .set("authorization", await makeAuthorization())
+      .send(makeBody());
 
     expect(response.statusCode).toBe(201);
 

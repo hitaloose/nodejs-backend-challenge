@@ -4,6 +4,7 @@ import request from "supertest";
 import { app } from "@/app";
 import { InMemoryPostRepository } from "@/repositories/implementations/InMemoryPostRepository";
 import { mockPost } from "@test/mocks/models/mockPost";
+import { makeAuthorization } from "@test/integration/helpers/makeAuthorization";
 
 const makeBody = () => ({
   title: faker.random.words(),
@@ -22,7 +23,10 @@ describe("PUT /api/posts/:postId", () => {
     const body = makeBody();
     body.title = "";
 
-    const response = await request(app).put(makePath()).send(body);
+    const response = await request(app)
+      .put(makePath())
+      .set("authorization", await makeAuthorization())
+      .send(body);
 
     expect(response.statusCode).toBe(400);
     expect(response.body.errorMessage).toBe("title is a required field");
@@ -31,6 +35,7 @@ describe("PUT /api/posts/:postId", () => {
   it("should throw if an invalid id is provided", async () => {
     const response = await request(app)
       .put(makePath("invalid-id"))
+      .set("authorization", await makeAuthorization())
       .send(makeBody());
 
     expect(response.statusCode).toBe(400);
@@ -42,6 +47,7 @@ describe("PUT /api/posts/:postId", () => {
 
     const response = await request(app)
       .put(makePath(mockedPostId))
+      .set("authorization", await makeAuthorization())
       .send(makeBody());
 
     expect(response.statusCode).toBe(404);
@@ -56,7 +62,10 @@ describe("PUT /api/posts/:postId", () => {
     InMemoryPostRepository.POSTS.push(mockedPost);
 
     const body = makeBody();
-    const response = await request(app).put(makePath(id)).send(body);
+    const response = await request(app)
+      .put(makePath(id))
+      .set("authorization", await makeAuthorization())
+      .send(body);
 
     expect(response.statusCode).toBe(200);
     expect(response.body?.post).toBeTruthy();
