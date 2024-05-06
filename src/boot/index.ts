@@ -1,1 +1,2 @@
 import "./setupModuleAlias";
+import "./setupEnvs";
