@@ -1,92 +1,74 @@
-# Backend Challenge
+# Desafio técnico Fuerza Studio
 
-The project is a simple challenge to test your skills in building APIs using the Node.js framework.
+Projeto referente ao teste técnico solicitado pela Fuerza Studio. Em resumo, este projeto trata de um CRUD de uma entidade denominada Post (title, body, tags). Além disso, foram incluídas rotas de autenticação, permitindo a criação e o login de usuários. Dessa forma, as rotas de gerenciamento de Posts só serão acessíveis por usuários autenticados.
 
-### Submission
+## 🚀 Começando
 
-- [ ] Read the description, requirements, and the others instructions
-- [ ] Fork the repository at [https://github.com/fuerzastudio/backend-challenge](https://github.com/fuerzastudio/backend-challenge)
-- [ ] Submit your challenge as a pull request
+Clone o repositório para sua máquina local.
 
-### What to do
-
-- Create a simple API to manage the system of posts (CRUD).
-
-**This API should allow to:**
-
-| Method | Name | Route |
-| ------ | ------ | ------ |
-| POST | Create Post | /api/posts |
-| GET | Listing Posts | /api/posts |
-| GET | Get Post By ID | /api/posts/:id |
-| PUT | Edit Post | /api/posts/:id |
-| DELETE | Delete Post | /api/posts/:id |
-
-**The post must have the following fields:**
-
-| Field | Type |
-| ------ | ------ |
-| id | UUID |
-| title | string |
-| body | string |
-| tags | string[] |
-
-### Requirements
-
-- [ ] All API responses must be in JSON format.
-- [ ] Add pagination on the API for the listing of the posts
-- [ ] Provide the unit testing for all routes using Mocha and Chai or your preferred testing framework.
-- [ ] Provide documentation for all routes, we preferer using Swagger API, but you can using README for documentation.
-- [ ] Provide a README file with usage instructions (how to the runs, considerations, etc...).
-- [ ] Use naming written as camelCase by convention.
-
-#### - **The folders structures of the project should be following the example below.**
-
-```sh
-├── src
-│   ├── controllers
-│   │   └── posts
-│   ├── helpers
-│   │   └── utils.js
-│   ├── models
-│   │   └── post.js
-│   ├── routes
-│   │   └── api
-│   │       ├── posts.js
-│   │       └── index.js
-│   └── app.js
-├── test
-│   └── posts
-├── .editorconfig
-├── .gitignore
-├── package.json
-└── readme.md
+```
+https://github.com/hitaloose/nodejs-backend-challenge.git
 ```
 
-#### Any routes should process the response in the controllers, no use function directly in the routes.
+### 📋 Pré-requisitos
 
-- See example below
+Para executar o projeto, é fundamental ter o Node instalado. Além disso, caso deseje utilizar uma implementação de banco de dados, é necessário ter o PostgreSQL instalado.
 
-![basic structure](https://i.imgur.com/lyRSYj8.png)
+### 🔧 Instalação
 
-### Data Persistence
+Segue o passo-a-passo para a instalação e execução do projeto.
 
-- [ ] You will need to persist the data in some way, maybe in memory.
-- [ ] You don't need to use any external data persistence (database, cache, etc.), and the easier it is for us to run it, is better.
+Primeiro, é necessário configurar as variáveis de ambiente. Isso pode ser feito copiando as variáveis de exemplo.
 
-### Evaluation
+```
+cp .env.exemple .env
+```
 
-- [ ] Architecture
-- [ ] Automated tests
-- [ ] Functionalities of the APIs
-- [ ] Programming good practices
-- [ ] Project organization
-- [ ] Structure componentization
-- [ ] Clean code with camelcase pattern
+> [!NOTE]
+> A variável REPO_IMPL aceita dois valores ("in_memory", "typeorm"). Ao utilizar a opção "typeorm", é obrigatório informar os dados de acesso ao PostgreSQL.
 
-### Bonus Level Up
+Agora, é necessário instalar as dependências externas utilizando o comando abaixo.
 
-- [ ] Authenticated the routes using JWT
-- [ ] Process and validate the data that the API receives before creating the post.
-- [ ] Using Postgres for storage data
-- [ ] Using Swagger API documentation
+```
+npm install
+```
+
+Para executar o projeto em modo de desenvolvimento, onde o servidor será reiniciado a cada alteração de arquivo, execute o comando abaixo.
+
+```
+npm run dev
+```
+
+Para executar o projeto sem a camada de desenvolvimento, basta executar o comando abaixo, pois ele já realizará o build do código e iniciará o serviço.
+
+```
+npm run start
+```
+
+Após isso, o projeto estará pronto para receber requisições. Consulte a documentação para obter mais detalhes sobre as rotas aceitas.
+
+## ⚙️ Executando os testes
+
+Após executar os comandos mencionados na seção de Instalação, basta rodar o comando abaixo para executar todos os testes automatizados do projeto.
+
+```
+npm run test:ci
+```
+
+## 📄 Acessando documentação
+
+Para acessar a documentação, é necessário executar os comandos mencionados na seção de Instalação e, com o projeto em execução, acessar a rota `<BASE_URL>/api-docs`.
+
+## 🛠️ Construído com
+
+Segue descrição de algumas das principais ferramentas utilizadas no projeto.
+
+* Typescript - Extensão do JavaScript que adiciona tipos estáticos opcionais para desenvolvimento mais seguro e escalável.
+* Express - Framework minimalista para lidar com requisições HTTP.
+* Yup - Validador de esquema usado para validar dados nas requisições de usuários.
+* Bcrypt - Hasher usado principalmente para criptografar senhas de forma segura.
+* JWT - Utilizado para criar token de acesso a API.
+* TypeORM - Usado para criar conexão com o banco de dados e gerenciar dados de forma amigável.
+* PostgreSQL - Banco de dados relacional utilizado no projeto.
+* Jest - Framework para execução de testes automatizados.
+* Swagger - Ferramenta para documentar e testar APIs de maneira fácil e interativa.
